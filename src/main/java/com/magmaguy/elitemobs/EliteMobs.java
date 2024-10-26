@@ -132,7 +132,10 @@ public class EliteMobs extends JavaPlugin {
         Bukkit.getLogger().info("\\____/\\_____/\\___/  \\_/ \\____/\\_|  |_/\\___/\\____/ \\____/");
         Bukkit.getLogger().info("By MagmaGuy - v. " + MetadataHandler.PLUGIN.getDescription().getVersion());
 
-        MagmaCore.onEnable();
+        // FIXME
+        //  Attempted to adjust invalid method MagmaCore.onEnable();
+        MagmaCore.createInstance(this);
+        MagmaCore.initializeImporter();
 
         if (VersionChecker.serverVersionOlderThan(21, 0)) {
             Logger.warn("You are running a Minecraft version older than 1.21.0! EliteMobs 9.0 and later are only compatible with Minecraft 1.21.0 or later, if you are running an older Minecraft version you will need to use a pre-9.0 version of EliteMobs.");
