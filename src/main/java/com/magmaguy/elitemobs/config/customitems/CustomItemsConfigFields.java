@@ -132,20 +132,4 @@ public class CustomItemsConfigFields extends CustomConfigFields {
                 Logger.warn("Item " + filename + " contains HARM/INSTANT_DAMAGE potion effect, which heals undead mobs (Minecraft vanilla mechanic) and often times confuses players and admins. It is recommended you switch this potion effect with something else, like STRENGTH if you want more damage.");
         });
     }
-
-    // FIXME
-    //  This is an attempt to replicate what the method does from its name and context clues
-    public @NotNull CompletableFuture<Void> setEnabledAndSave(boolean enable) {
-        return CompletableFuture.runAsync(() -> {
-            this.setEnabled(enable);
-            this.getFileConfiguration().set("isEnabled", enable);
-            try {
-                this.getFileConfiguration().save(this.getFile());
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
-        }).exceptionally(e -> {
-            throw new RuntimeException(e);
-        });
-    }
 }
