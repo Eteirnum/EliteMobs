@@ -80,6 +80,8 @@ repositories {
 }
 
 dependencies {
+    // Need to have this on local
+    implementation group: 'com.magmaguy', name: 'MagmaCore', version: '2.0'
     //Spigot API
     compileOnly "org.spigotmc:spigot-api:1.21-R0.1-SNAPSHOT"
     //WorldGuard API
@@ -104,8 +106,8 @@ dependencies {
     annotationProcessor 'org.projectlombok:lombok:1.18.34'
     //Model Engine - legacy
     compileOnly "com.ticxo.modelengine:api:R3.1.7"
-    //Free Minecraft Models
-    compileOnly group: 'com.magmaguy', name: 'FreeMinecraftModels', version: '1.4.2'
+    //Free Minecraft Models - Needs to be on local
+    compileOnly(group: 'com.magmaguy', name: 'FreeMinecraftModels', version: 'CUSTOM')
     // Mythic Mobs integration - currently only for arenas
     compileOnly group: 'io.lumine', name: 'Mythic-Dist', version: '5.3.5'
 
@@ -114,8 +116,6 @@ dependencies {
     implementation group: 'commons-io', name: 'commons-io', version: '2.7'
     implementation group: 'org.apache.commons', name: 'commons-math3', version: '3.6.1'
     implementation group: 'com.magmaguy', name: 'EasyMinecraftGoals-dist', version: '1.13.4'
-    implementation group: 'com.magmaguy', name: 'MagmaCore', version: '1.4'
-
 }
 
 artifacts { // task 'build' runs generates uberjar
