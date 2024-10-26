@@ -24,6 +24,9 @@ public class Navigation implements Listener {
 
     // FIXME
     //  Removed unused invalid method stopMoving
+    // public static void stopMoving(LivingEntity livingEntity){
+    //    NMSManager.getAdapter().doNotMove(livingEntity);
+    // }
 
     private static final HashMap<CustomBossEntity, BukkitTask> currentlyNavigating = new HashMap();
 
