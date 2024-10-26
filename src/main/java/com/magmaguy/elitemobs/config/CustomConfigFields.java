@@ -2,9 +2,11 @@ package com.magmaguy.elitemobs.config;
 
 import com.magmaguy.elitemobs.config.translations.TranslationsConfig;
 import org.bukkit.configuration.ConfigurationSection;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.CompletableFuture;
 
 public class CustomConfigFields extends com.magmaguy.magmacore.config.CustomConfigFields {
 
