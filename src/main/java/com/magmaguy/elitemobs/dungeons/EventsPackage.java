@@ -63,7 +63,7 @@ public class EventsPackage extends EMPackage {
         Logger.sendMessage(player, action + " " + customEvents.size() + " events...");
 
         List<CompletableFuture<Void>> futures = customEvents.stream()
-                .map(customItem -> customItem.setEnabledAndSave(enable))
+                .map(customEvent -> customEvent.setEnabledAndSave(enable))
                 .toList();
 
         Logger.sendMessage(player, "Saving " + customEvents.size() + " event files...");

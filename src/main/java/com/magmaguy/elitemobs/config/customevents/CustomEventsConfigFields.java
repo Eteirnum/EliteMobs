@@ -6,9 +6,12 @@ import com.magmaguy.magmacore.util.Logger;
 import lombok.Getter;
 import lombok.Setter;
 import org.bukkit.Material;
+import org.jetbrains.annotations.NotNull;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.CompletableFuture;
 
 public class CustomEventsConfigFields extends CustomConfigFields {
 
@@ -93,6 +96,22 @@ public class CustomEventsConfigFields extends CustomConfigFields {
         this.endEventWithBossDeath = processBoolean("endEventWithBossDeath", endEventWithBossDeath, true, false);
         this.spawnType = processString("spawnType", spawnType, "", false);
         this.minimumPlayerCount = processInt("minimumPlayerCount", minimumPlayerCount, 1, false);
+    }
+
+    // FIXME
+    //  This is an attempt to replicate what the method does from its name and context clues
+    public @NotNull CompletableFuture<Void> setEnabledAndSave(boolean enable) {
+        return CompletableFuture.runAsync(() -> {
+            this.setEnabled(enable);
+            this.getFileConfiguration().set("isEnabled", enable);
+            try {
+                this.getFileConfiguration().save(this.getFile());
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        }).exceptionally(e -> {
+            throw new RuntimeException(e);
+        });
     }
 
 }
