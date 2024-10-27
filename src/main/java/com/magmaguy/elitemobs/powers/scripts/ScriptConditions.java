@@ -1,5 +1,6 @@
 package com.magmaguy.elitemobs.powers.scripts;
 
+import com.eteirnum.core.EteirnumCore;
 import com.magmaguy.elitemobs.entitytracker.EntityTracker;
 import com.magmaguy.elitemobs.mobconstructor.EliteEntity;
 import com.magmaguy.elitemobs.playerdata.ElitePlayerInventory;
@@ -71,6 +72,20 @@ public class ScriptConditions {
         if (conditionsBlueprint.getIsAlive() == null) return true;
         if (livingEntity == null) return false;
         return livingEntity.isValid() == conditionsBlueprint.getIsAlive();
+    }
+
+    /**
+     * Checks if a living entity has mob kills that required
+     *
+     * @param livingEntity The living entity to check.
+     * @return True if the condition is met; false otherwise.
+     */
+    private boolean hasMobKills(LivingEntity livingEntity) {
+        if (conditionsBlueprint.getMobKills() == null) return true;
+        if (livingEntity == null) return false;
+        if (!(livingEntity instanceof Player player)) return false;
+        int mobKills = EteirnumCore.instance.getPlayerStatsManager().get(player.getUniqueId()).getMobKills();
+        return mobKills >= conditionsBlueprint.getMobKills();
     }
 
     /**
@@ -232,6 +247,12 @@ public class ScriptConditions {
             return false;
         }
 
+        // Special case: if the target is SELF and the condition hasMobKills is not met
+        if (scriptTargets.getTargetBlueprint().getTargetType().equals(TargetType.SELF) &&
+                !hasMobKills(scriptActionData.getEliteEntity().getLivingEntity())) {
+            return false;
+        }
+
         // Only proceed if the condition type is BLOCKING
         if (!conditionsBlueprint.getConditionType().equals(ConditionType.BLOCKING)) return true;
 
@@ -260,6 +281,7 @@ public class ScriptConditions {
         if (!hasTagsCheck(livingEntity)) return false;
         if (!checkConditions(livingEntity.getLocation())) return false;
         if (!doesNotHaveTags(livingEntity)) return false;
+        if (!hasMobKills(livingEntity)) return false;
 
         return true;
     }
