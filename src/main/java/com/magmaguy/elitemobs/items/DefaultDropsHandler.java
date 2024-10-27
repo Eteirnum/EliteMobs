@@ -1,10 +1,16 @@
 package com.magmaguy.elitemobs.items;
 
+import com.eteirnum.core.EteirnumCore;
+import com.eteirnum.core.player.attributes.PlayerAttributes;
+import com.eteirnum.core.player.attributes.PlayerAttributesManager;
 import com.magmaguy.elitemobs.api.EliteMobDeathEvent;
 import com.magmaguy.elitemobs.config.ItemSettingsConfig;
 import org.bukkit.Material;
+import org.bukkit.damage.DamageSource;
+import org.bukkit.entity.Entity;
 import org.bukkit.entity.ExperienceOrb;
 import org.bukkit.entity.LivingEntity;
+import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
@@ -54,11 +60,17 @@ public class DefaultDropsHandler implements Listener {
             }
         }
 
-        mobLevel = (int) (event.getEliteEntity().getLevel() * ItemSettingsConfig.getDefaultExperienceMultiplier());
-
-        int droppedXP = (int) (event.getEntityDeathEvent().getDroppedExp() + event.getEntityDeathEvent().getDroppedExp() * 0.1 * mobLevel);
         event.getEntityDeathEvent().setDroppedExp(0);
-        event.getEntity().getWorld().spawn(event.getEntity().getLocation(), ExperienceOrb.class).setExperience(droppedXP);
+
+        Entity causingEntity = event.getEntityDeathEvent().getDamageSource().getCausingEntity();
+        if (causingEntity == null) return;
+        if (!(causingEntity instanceof Player causingPlayer)) return;
+        PlayerAttributes attributes = EteirnumCore.instance.getPlayerAttributesManager().get(causingPlayer.getUniqueId());
+
+        mobLevel = (int) (event.getEliteEntity().getLevel() * ItemSettingsConfig.getDefaultExperienceMultiplier());
+        int droppedXP = (int) (event.getEntityDeathEvent().getDroppedExp() + event.getEntityDeathEvent().getDroppedExp() * 0.1 * mobLevel);
+
+        attributes.addExp(droppedXP);
 
     }
 

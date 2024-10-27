@@ -38,6 +38,8 @@ public class ScriptConditionsBlueprint {
     @Getter
     @Setter
     private Material isStandingOnMaterial = null;
+    @Getter
+    private Integer mobKills = null;
 
     //Process from a script
     public ScriptConditionsBlueprint(ConfigurationSection configurationSection, String scriptName, String filename) {
@@ -74,6 +76,7 @@ public class ScriptConditionsBlueprint {
                     value = memorySection.getValues(false);
                 scriptTargets = new ScriptTargetsBlueprint((Map) value, scriptName, filename);
             }
+            case "mobkills" -> mobKills = MapListInterpreter.parseInteger(key, value, scriptName);
             default -> Logger.warn("Failed to read key " + key + " for script " + scriptName);
         }
     }
