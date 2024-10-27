@@ -69,9 +69,9 @@ public class DefaultDropsHandler implements Listener {
         // FIXME
         //  Rebalance the exp gained
         int rand = random.nextInt(5) + 1;
-        int level = event.getEliteEntity().getLevel(); // IGNORED  ItemSettingsConfig.getDefaultExperienceMultiplier()
+        double level = event.getEliteEntity().getLevel() * ItemSettingsConfig.getDefaultExperienceMultiplier();
 
-        attributes.addExp(rand * level);
+        attributes.addExp((int) (rand * level));
 
     }
 
