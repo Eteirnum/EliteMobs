@@ -2,13 +2,10 @@ package com.magmaguy.elitemobs.items;
 
 import com.eteirnum.core.EteirnumCore;
 import com.eteirnum.core.player.attributes.PlayerAttributes;
-import com.eteirnum.core.player.attributes.PlayerAttributesManager;
 import com.magmaguy.elitemobs.api.EliteMobDeathEvent;
 import com.magmaguy.elitemobs.config.ItemSettingsConfig;
 import org.bukkit.Material;
-import org.bukkit.damage.DamageSource;
 import org.bukkit.entity.Entity;
-import org.bukkit.entity.ExperienceOrb;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -19,12 +16,14 @@ import org.bukkit.inventory.ItemStack;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 /**
  * Created by MagmaGuy on 04/06/2017.
  */
 public class DefaultDropsHandler implements Listener {
 
+    private final Random random = new Random();
     private final List<ItemStack> wornItems = new ArrayList<>();
 
     @EventHandler(priority = EventPriority.HIGHEST)
@@ -67,8 +66,11 @@ public class DefaultDropsHandler implements Listener {
         if (!(causingEntity instanceof Player causingPlayer)) return;
         PlayerAttributes attributes = EteirnumCore.instance.getPlayerAttributesManager().get(causingPlayer.getUniqueId());
 
+        // FIXME
+        //  Rebalance the exp gained
+        int rand = random.nextInt(5) + 1;
         mobLevel = (int) (event.getEliteEntity().getLevel() * ItemSettingsConfig.getDefaultExperienceMultiplier());
-        int droppedXP = (int) (event.getEntityDeathEvent().getDroppedExp() + event.getEntityDeathEvent().getDroppedExp() * 0.1 * mobLevel);
+        int droppedXP = (int) (rand + rand * 0.1 * mobLevel);
 
         attributes.addExp(droppedXP);
 
