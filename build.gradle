@@ -82,6 +82,7 @@ repositories {
 dependencies {
     // Need to have this on local
     implementation group: 'com.magmaguy', name: 'MagmaCore', version: '2.0'
+    implementation 'com.eteirnum:EteirnumCore:0.1-SNAPSHOT:dev-all'
     //Spigot API
     compileOnly "org.spigotmc:spigot-api:1.21-R0.1-SNAPSHOT"
     //WorldGuard API
