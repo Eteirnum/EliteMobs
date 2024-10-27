@@ -59,7 +59,6 @@ public class DefaultDropsHandler implements Listener {
             }
         }
 
-        int droppedXP = (int) (event.getEntityDeathEvent().getDroppedExp() + event.getEntityDeathEvent().getDroppedExp() * 0.1 * mobLevel);
         event.getEntityDeathEvent().setDroppedExp(0);
 
         Entity causingEntity = event.getEntityDeathEvent().getDamageSource().getCausingEntity();
