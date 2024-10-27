@@ -70,7 +70,7 @@ public class DefaultDropsHandler implements Listener {
         //  Rebalance the exp gained
         int rand = random.nextInt(5) + 1;
         mobLevel = (int) (event.getEliteEntity().getLevel() * ItemSettingsConfig.getDefaultExperienceMultiplier());
-        int droppedXP = (int) (rand + event.getEntityDeathEvent().getDroppedExp() * 0.1 * mobLevel);
+        int droppedXP = (int) (rand + rand * 0.1 * mobLevel);
 
         attributes.addExp(droppedXP);
 
